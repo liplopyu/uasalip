@@ -1,0 +1,195 @@
+/* ======================================================
+   STYLE.CSS - BERITANET FINAL
+   ====================================================== */
+
+/* 1. FONT IMPORTS & DEFINISI VARIABEL */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+    
+    /* Light Mode (Default) */
+    --color-primary: #005f73;
+    --color-accent: #ee6c4d;
+    --color-bg: #f5f7fa;
+    --color-text: #1a1a1a;
+    --card-bg: rgba(255, 255, 255, 0.5);
+    --card-border: rgba(255, 255, 255, 0.2);
+    --navbar-bg: rgba(245, 247, 250, 0.8);
+}
+
+body.dark-mode {
+    /* Dark Mode */
+    --color-primary: #94d2bd;
+    --color-accent: #e76f51;
+    --color-bg: #232526;
+    --color-text: #e0e0e0;
+    --card-bg: rgba(40, 40, 40, 0.6);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --navbar-bg: rgba(20, 20, 20, 0.7);
+}
+
+
+/* 2. GENERAL STYLING */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.7;
+    color: var(--color-text);
+    background: var(--color-bg);
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1px; }
+h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-primary); }
+a { text-decoration: none; color: var(--color-accent); }
+img { max-width: 100%; height: auto; }
+
+
+/* 3. NAVBAR */
+.navbar {
+    background: var(--navbar-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 1rem 0;
+    position: sticky; top: 0; z-index: 1000;
+    transition: background 0.4s ease;
+}
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.navbar-left, .navbar-right { display: flex; align-items: center; gap: 20px; }
+.nav-logo { font-size: 1.8rem; font-weight: 700; color: var(--color-primary); }
+.nav-menu { list-style: none; display: flex; align-items: center; gap: 25px; }
+.nav-link { color: var(--color-text); font-weight: 700; transition: color 0.3s ease; position: relative; padding-bottom: 5px; }
+.nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--color-accent); transition: width 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--color-primary); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* Search Box & Theme Switch */
+.search-box form { display: flex; }
+.search-box input { background: transparent; border: 1px solid var(--card-border); color: var(--color-text); padding: 8px 15px; border-radius: 50px 0 0 50px; width: 180px; transition: all .3s; }
+.search-box input:focus { border-color: var(--color-primary); }
+.search-box button { background: var(--color-primary); border: 1px solid var(--color-primary); color: #fff; padding: 8px 15px; border-radius: 0 50px 50px 0; cursor: pointer; }
+
+.theme-switch-wrapper { display: flex; align-items: center; }
+.theme-switch-wrapper .fas { color: var(--color-text); font-size: 1.2rem; }
+.theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; margin: 0 10px; }
+.theme-switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+input:checked + .slider { background-color: var(--color-accent); }
+input:checked + .slider:before { transform: translateX(24px); }
+
+
+/* 4. HERO SLIDER & BUTTONS */
+.btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; }
+.btn-primary { background-color: var(--color-accent); color: #fff; box-shadow: 0 4px 15px rgba(238, 108, 77, 0.4); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(238, 108, 77, 0.6); }
+
+.hero-slider-section { height: 70vh; width: 100%; margin-bottom: 60px; }
+.swiper.heroSwiper { width: 100%; height: 100%; }
+.swiper-slide { display: flex; justify-content: center; align-items: center; background-size: cover; background-position: center; position: relative; }
+.swiper-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2)); z-index: 1; }
+.swiper-slide .hero-content { color: #fff; text-align: center; position: relative; z-index: 2; padding: 0 20px; max-width: 800px; }
+.swiper-slide .hero-content h1 { font-size: 3.5rem; margin-bottom: 20px; color: #fff; }
+.swiper-slide .hero-content p { font-size: 1.2rem; margin-bottom: 30px; color: #eee; }
+.swiper-button-next, .swiper-button-prev { color: #fff !important; }
+.swiper-pagination-bullet-active { background: var(--color-accent) !important; }
+
+/* 5. NEWS GRID & CARDS */
+.page-title { text-align: center; font-size: 3rem; margin-bottom: 50px; }
+.news-grid { 
+    display: flex;           /* 1. Gunakan Flexbox */
+    flex-wrap: wrap;         /* 2. Izinkan item pindah ke baris baru */
+    justify-content: center; /* 3. Ratakan semua item ke tengah */
+    gap: 30px;
+}
+
+/* TAMBAHKAN RULE BARU INI TEPAT DI BAWAHNYA */
+.news-grid > a.glass-card {
+    flex: 1 1 320px;   /* 4. Ini kuncinya: bisa tumbuh, bisa menyusut, basis lebar 320px */
+    max-width: 400px; /* 5. Batasi lebar maksimum agar tidak terlalu meregang jika hanya ada 1 item */
+}
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border-radius: 15px;
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s ease, background 0.4s ease;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+}
+.glass-card:hover { transform: translateY(-5px); }
+.news-image { width: 100%; height: 200px; object-fit: cover; }
+.news-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.news-category { color: var(--color-accent); font-weight: 700; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; }
+.news-title { font-size: 1.5rem; margin-bottom: 15px; color: var(--color-primary); flex-grow: 1; }
+.news-meta { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--color-text); margin-top: auto; border-top: 1px solid var(--card-border); padding-top: 15px; }
+.news-meta i { color: var(--color-primary); }
+
+/* 6. PAGINATION & FOOTER */
+.pagination { display: flex; justify-content: center; margin: 60px 0; gap: 10px; }
+.pagination a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; text-decoration: none; color: var(--color-text); background: var(--card-bg); border: 1px solid var(--card-border); transition: all 0.3s ease; }
+.pagination a:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.pagination a.active { background: var(--color-accent); color: #fff; font-weight: bold; border-color: var(--color-accent); }
+
+footer { text-align: center; padding: 40px 0; margin-top: 60px; border-top: 1px solid var(--card-border); }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+
+/* 7. DETAIL PAGE */
+.article-header { text-align: center; margin-bottom: 40px; }
+.article-header .news-category { margin-bottom: 15px; }
+.article-header h1 { font-size: 3.5rem; }
+.article-header .news-meta { justify-content: center; gap: 25px; margin-top: 15px; font-size: 1rem; }
+.article-image { width: 100%; max-height: 550px; object-fit: cover; border-radius: 15px; margin-bottom: 40px; }
+.article-content { max-width: 800px; margin: 0 auto; font-size: 1.15rem; }
+.article-content p, .article-content ul, .article-content ol { margin-bottom: 1.5rem; }
+
+/* 8. HAMBURGER & OFF-CANVAS SIDEBAR */
+/* Hamburger untuk Kategori */
+.category-toggle-btn { background: transparent; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+.category-toggle-btn .bar { display: block; width: 25px; height: 3px; background-color: var(--color-primary); transition: all 0.3s ease-in-out; border-radius: 2px; }
+
+/* Hamburger untuk Menu Utama (Mobile) */
+.hamburger { display: none; cursor: pointer; }
+.hamburger .bar { background-color: var(--color-text); }
+
+/* Off-Canvas Sidebar */
+.category-sidebar { position: fixed; top: 0; left: 0; width: 300px; height: 100%; background: var(--navbar-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 1001; padding: 80px 30px 30px 30px; transform: translateX(-100%); transition: transform 0.4s ease; overflow-y: auto; }
+.category-sidebar.active { transform: translateX(0); }
+.category-sidebar h3 { font-size: 1.8rem; margin-bottom: 20px; border-bottom: 2px solid var(--color-accent); padding-bottom: 10px; }
+.category-sidebar .category-list { list-style: none; }
+.category-sidebar .category-list li a { display: block; padding: 15px; color: var(--color-text); border-radius: 8px; font-weight: bold; transition: background 0.3s ease, color 0.3s ease; }
+.category-sidebar .category-list li a:hover { background-color: var(--color-primary); color: #fff; }
+
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+.sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+/* 9. RESPONSIVE */
+@media (max-width: 992px) {
+    .nav-menu { display: none; }
+    .hamburger { display: block; }
+
+    /* Tampilkan menu utama saat hamburger di-klik */
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: var(--navbar-bg);
+        width: 100%;
+        padding: 20px;
+        border-top: 1px solid var(--card-border);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-right { gap: 10px; }
+    .search-box { display: none; } /* Sembunyikan searchbox di mobile */
+    .swiper-slide .hero-content h1 { font-size: 2.5rem; }
+    .article-header h1 { font-size: 2.5rem; }
+}
